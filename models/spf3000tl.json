@@ -1,0 +1,157 @@
+[
+  {
+    "address": "0x01",
+    "name": "PVVoltage",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "V"
+  },
+  {
+    "address": "0x04",
+    "name": "PVWatts",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "W"
+  },
+  {
+    "address": "0x07",
+    "name": "PVAmps",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "A"
+  },
+  {
+    "address": "0x0a",
+    "name": "OutputWatts",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "W"
+  },
+  {
+    "address": "0x11",
+    "name" : "BatteryVoltage",
+    "scale_factor": -2,
+    "length": 1,
+    "uom": "V"
+  },
+  {
+    "address": "0x13",
+    "name" : "SomeOtherVoltage",
+    "scale_factor": -2,
+    "length": 1,
+    "uom": "V"
+  },
+  {
+    "address": "0x16",
+    "name": "OutputVoltage",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "V"
+  },
+  {
+    "address": "0x17",
+    "name": "OutputFrequency",
+    "scale_factor": -2,
+    "length": 1,
+    "uom": "Hz"
+  },
+  {
+    "address": "0x19",
+    "name" : "Temperature1",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "C"
+  },
+  {
+    "address": "0x1a",
+    "name" : "Temperature2",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "C"
+  },
+  {
+    "address": "0x1b",
+    "name" : "InverterLoadPct",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "%"
+  },
+  {
+    "address": "0x20",
+    "name" : "Temperature3",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "C"
+  },
+  {
+    "address": "0x21",
+    "name" : "Temperature4",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "C"
+  },
+  {
+    "address": "0x54",
+    "name" : "BatteryWatts1",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "W"
+  },
+  {
+    "address": "0x5a",
+    "name" : "BatteryAmps1",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "A"
+  },
+  {
+    "address": "0x1b7",
+    "name" : "WattsMaybe",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "W"
+  },
+  {
+    "address": "0x1be",
+    "name" : "WattHoursMaybe1",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "Wh"
+  },
+  {
+    "address": "0x1bf",
+    "name" : "WattHoursMaybe2",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "Wh"
+  },
+  {
+    "address": "0x1c0",
+    "name" : "WattHoursMaybe3",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "Wh"
+  },
+  {
+    "address": "0x1c1",
+    "name" : "WattHoursMaybe4",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "Wh"
+  },
+  {
+    "address": "0x1c2",
+    "name" : "WattHoursMaybe5",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "Wh"
+  },
+  {
+    "address": "0x1c3",
+    "name" : "WattHoursMaybe",
+    "scale_factor": -1,
+    "length": 1,
+    "uom": "Wh"
+  }
+
+]
