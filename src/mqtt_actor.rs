@@ -2,6 +2,8 @@ use rumqttc::{AsyncClient, EventLoop, MqttOptions, QoS};
 use rumqttc::{Event, Incoming, Outgoing};
 use std::time::Duration;
 use tokio::sync::{mpsc, oneshot};
+use crate::payload::HAConfigPayload;
+
 pub struct MqttActor {
     client: AsyncClient,
     eventloop: EventLoop,
@@ -56,7 +58,7 @@ pub async fn run_mqtt_actor(mut actor: MqttActor) {
 
     let (client, mut eventloop, mut receiver) = actor.split();
 
-    tokio::task::Builder::new()
+    let task = tokio::task::Builder::new()
         .name("mqtt_poll_loop")
         .spawn(async move {
             // region eventloop tending
@@ -68,8 +70,9 @@ pub async fn run_mqtt_actor(mut actor: MqttActor) {
                 {
                     Ok(event) => Some(event),
                     Err(e) => {
-                        let msg = format!("Unable to poll mqtt: {e}");
-                        panic!("{}", msg);
+                        let msg = format!("MQTT POLL LOOP: Unable to poll mqtt: {e}");
+                        error!("{}", msg);
+                        return;
                     }
                 };
 
@@ -99,11 +102,17 @@ pub async fn run_mqtt_actor(mut actor: MqttActor) {
                 //endregion
             }
         });
-    loop {
-
-        if let Ok(msg) = receiver.try_recv() {
-            MqttActor::handle_message(&client, msg).await;
+    if let Ok(handle) = task {
+        loop {
+            if let Ok(msg) = receiver.try_recv() {
+                MqttActor::handle_message(&client, msg).await;
+            }
+            if handle.is_finished() {
+                break;
+            }
+            tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
         }
-        tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+    } else {
+        panic!("mqtt task was unable to be spawned.");
     }
 }

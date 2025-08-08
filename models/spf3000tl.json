@@ -1,157 +1,236 @@
-[
-  {
-    "address": "0x01",
-    "name": "PVVoltage",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "V"
+{
+  "manufacturer": "Growatt",
+  "model": "SPF3000TL",
+  "serial_number": {
+    "format": "string",
+    "address": 23,
+    "length": 5
   },
-  {
-    "address": "0x04",
-    "name": "PVWatts",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "W"
+  "firmware_version": {
+    "format": "string",
+    "address": 9,
+    "length": 3
   },
-  {
-    "address": "0x07",
-    "name": "PVAmps",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "A"
-  },
-  {
-    "address": "0x0a",
-    "name": "OutputWatts",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "W"
-  },
-  {
-    "address": "0x11",
-    "name" : "BatteryVoltage",
-    "scale_factor": -2,
-    "length": 1,
-    "uom": "V"
-  },
-  {
-    "address": "0x13",
-    "name" : "SomeOtherVoltage",
-    "scale_factor": -2,
-    "length": 1,
-    "uom": "V"
-  },
-  {
-    "address": "0x16",
-    "name": "OutputVoltage",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "V"
-  },
-  {
-    "address": "0x17",
-    "name": "OutputFrequency",
-    "scale_factor": -2,
-    "length": 1,
-    "uom": "Hz"
-  },
-  {
-    "address": "0x19",
-    "name" : "Temperature1",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "C"
-  },
-  {
-    "address": "0x1a",
-    "name" : "Temperature2",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "C"
-  },
-  {
-    "address": "0x1b",
-    "name" : "InverterLoadPct",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "%"
-  },
-  {
-    "address": "0x20",
-    "name" : "Temperature3",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "C"
-  },
-  {
-    "address": "0x21",
-    "name" : "Temperature4",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "C"
-  },
-  {
-    "address": "0x54",
-    "name" : "BatteryWatts1",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "W"
-  },
-  {
-    "address": "0x5a",
-    "name" : "BatteryAmps1",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "A"
-  },
-  {
-    "address": "0x1b7",
-    "name" : "WattsMaybe",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "W"
-  },
-  {
-    "address": "0x1be",
-    "name" : "WattHoursMaybe1",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "Wh"
-  },
-  {
-    "address": "0x1bf",
-    "name" : "WattHoursMaybe2",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "Wh"
-  },
-  {
-    "address": "0x1c0",
-    "name" : "WattHoursMaybe3",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "Wh"
-  },
-  {
-    "address": "0x1c1",
-    "name" : "WattHoursMaybe4",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "Wh"
-  },
-  {
-    "address": "0x1c2",
-    "name" : "WattHoursMaybe5",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "Wh"
-  },
-  {
-    "address": "0x1c3",
-    "name" : "WattHoursMaybe",
-    "scale_factor": -1,
-    "length": 1,
-    "uom": "Wh"
-  }
-
-]
+  "points": [
+    {
+      "address": "0x01",
+      "name": "PVVoltage",
+      "scale_factor": -1,
+      "device_class": "voltage",
+      "state_class": "measurement",
+      "length": 1,
+      "uom": "V",
+      "precision": 2
+    },
+    {
+      "address": "0x04",
+      "name": "PVWatts",
+      "scale_factor": -1,
+      "device_class": "power",
+      "state_class": "measurement",
+      "length": 1,
+      "uom": "W",
+      "precision": 2
+    },
+    {
+      "address": "0x07",
+      "name": "PVAmps",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "A",
+      "device_class": "current",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x0a",
+      "name": "OutputWatts",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "W",
+      "device_class": "power",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x11",
+      "name": "BatteryVoltage",
+      "scale_factor": -2,
+      "length": 1,
+      "uom": "V",
+      "device_class": "voltage",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x13",
+      "name": "SomeOtherVoltage",
+      "scale_factor": -2,
+      "length": 1,
+      "uom": "V",
+      "device_class": "voltage",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x16",
+      "name": "OutputVoltage",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "V",
+      "device_class": "voltage",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x17",
+      "name": "OutputFrequency",
+      "scale_factor": -2,
+      "length": 1,
+      "device_class": "frequency",
+      "state_class": "measurement",
+      "uom": "Hz",
+      "precision": 2
+    },
+    {
+      "address": "0x19",
+      "name": "Temperature1",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x1a",
+      "name": "Temperature2",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x1b",
+      "name": "InverterLoadPct",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "%",
+      "device_class": "percent",
+      "state_class": "measurement",
+      "precision": 0
+    },
+    {
+      "address": "0x20",
+      "name": "Temperature3",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x21",
+      "name": "Temperature4",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "C",
+      "device_class": "temperature",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x54",
+      "name": "BatteryWatts1",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "W",
+      "device_class": "power",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x5a",
+      "name": "BatteryAmps1",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "A",
+      "device_class": "current",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x1b7",
+      "name": "WattsMaybe",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "W",
+      "device_class": "power",
+      "state_class": "measurement",
+      "precision": 2
+    },
+    {
+      "address": "0x1be",
+      "name": "WattHoursMaybe1",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "Wh",
+      "device_class": "energy",
+      "state_class": "total_increasing",
+      "precision": 2
+    },
+    {
+      "address": "0x1bf",
+      "name": "WattHoursMaybe2",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "Wh",
+      "device_class": "energy",
+      "state_class": "total_increasing",
+      "precision": 2
+    },
+    {
+      "address": "0x1c0",
+      "name": "WattHoursMaybe3",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "Wh",
+      "device_class": "energy",
+      "state_class": "total_increasing",
+      "precision": 2
+    },
+    {
+      "address": "0x1c1",
+      "name": "WattHoursMaybe4",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "Wh",
+      "device_class": "energy",
+      "state_class": "total_increasing",
+      "precision": 2
+    },
+    {
+      "address": "0x1c2",
+      "name": "WattHoursMaybe5",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "Wh",
+      "device_class": "energy",
+      "state_class": "total_increasing",
+      "precision": 2
+    },
+    {
+      "address": "0x1c3",
+      "name": "WattHoursMaybe",
+      "scale_factor": -1,
+      "length": 1,
+      "uom": "Wh",
+      "device_class": "energy",
+      "state_class": "total_increasing",
+      "precision": 2
+    }
+  ]
+}

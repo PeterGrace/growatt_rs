@@ -1,6 +1,7 @@
 use anyhow::bail;
 use crate::mqtt_actor::{MqttActor, MqttMessage, run_mqtt_actor};
 use tokio::sync::{mpsc, oneshot};
+use crate::payload::HAConfigPayload;
 
 #[derive(Clone)]
 pub struct MqttActorHandler {
@@ -24,7 +25,7 @@ impl MqttActorHandler {
 
         if let Err(e) = self.sender.send(msg).await {
             let msg = format!("Unable to send message: {e}");
-            error!("{msg}");
+            debug!("{msg}");
             bail!(msg);
         } else {
             if let Err(e) = recv.await {

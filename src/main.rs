@@ -5,6 +5,8 @@ mod consts;
 mod structs;
 mod mqtt_actor;
 mod mqtt_handler;
+mod payload;
+mod date_serializer;
 
 use core::time::Duration;
 use std::collections::HashMap;
@@ -16,10 +18,11 @@ use tokio_modbus::{Address, Quantity};
 use tokio_serial::SerialStream;
 use crate::structs::GrowattModel;
 use console_subscriber as tokio_console_subscriber;
-use serde_json::Value;
+use serde_json::{json, Value};
 use tracing_subscriber::{EnvFilter, Registry, prelude::*};
 use tracing_subscriber::fmt::format::FmtSpan;
 use crate::mqtt_handler::MqttActorHandler;
+use crate::payload::{generate_payloads, DeviceInfo, ValueType};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -48,7 +51,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tracing::subscriber::set_global_default(subscriber).expect("Failed to set tracing subscriber");
     //endregion
 
-    let mqtt = MqttActorHandler::new();
+    let mut mqtt = MqttActorHandler::new();
 
 
     let slave = Slave(0x01);
@@ -102,6 +105,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
+    let sn = {
+        let sn_locator = points.get_locator("serial_number");
+        let rsp = ctx.read_holding_registers(sn_locator.address, sn_locator.length as Quantity).await??;
+        string_proc(&rsp)
+    };
+    let fw = {
+        let fw_locator = points.get_locator("firmware_version");
+        let rsp = ctx.read_holding_registers(fw_locator.address, fw_locator.length as Quantity).await??;
+        string_proc(&rsp)
+    };
+    println!("Serial number: {sn}");
+    println!("Firmware version: {fw}");
+
+    let mut device = DeviceInfo::default();
+    device.model = points.get_model().clone();
+    device.name = device.model.clone();
+    device.manufacturer = points.get_manufacturer().clone();
+    device.identifiers = vec![sn.clone()];
 
     loop {
         println!("-------------------");
@@ -111,15 +132,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let v2 = *v as i16;
                 let sf_v = (v2 as f64) * 10.0_f64.powi(p.scale_factor.into());
                 println!("{}(0x{:02x}): {sf_v:.2}{}", p.name, p.address, p.uom);
-
-                let topic: String = format!("growatt/{}", p.name);
-                let mut data: HashMap<String, Value> = HashMap::new();
-                data.insert("name".to_string(), p.name.clone().into());
-                data.insert("value".to_string(), sf_v.into());
-                data.insert("uom".to_string(), p.uom.clone().into());
-                let payload: String = serde_json::to_string(&data).unwrap();
-                if let Err(e) = mqtt.publish(topic, payload).await {
-                    panic!("Fatal error with sending payload via mqtt: {e}");
+                let payloads = generate_payloads(&device, sn.clone(), p, ValueType::Float(sf_v)).await;
+                for payload in payloads {
+                    let config = json!(payload.config.clone());
+                    let state = json!(payload.state.clone());
+                    if let Err(e) = mqtt.publish(payload.config_topic, config.to_string()).await {
+                        error!("Fatal error with sending config payload via mqtt: {e}");
+                        mqtt = MqttActorHandler::new();
+                    }
+                    if let Err(e) = mqtt.publish(payload.state_topic, state.to_string()).await {
+                        error!("Fatal error with sending payload via mqtt: {e}");
+                        mqtt = MqttActorHandler::new();
+                    }
                 }
 
             }
